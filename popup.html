@@ -127,7 +127,6 @@
 
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <script src="trial.js"></script>
   </head>
 
   <body>
@@ -136,18 +135,20 @@
       <div id="project-container">
         <div id="overlay"></div>
         <div id="content">
-          <h2>Throne</h2>
-          <h3>Bring Me The Horizon</h3>
-          <input type="range" value="30" />
+          <h2>SoundCloud</h2>
+          <h3></h3>
+          <!-- <input type="range" value="0" /> -->
           <div id="controls">
-            <div class="column"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+            <div class="column"><i style="display: none;" class="fa fa-refresh" aria-hidden="true"></i></div>
             <div class="column"><i class="fa fa-step-backward" aria-hidden="true"></i></div>
-            <div class="column"><i class="fa fa-play play-btn fa-fw" aria-hidden="true"></i></div>
-            <div id="next" class="column"><i class="fa fa-step-forward" aria-hidden="true"></i></div>
-            <div class="column active"><i class="fa fa-random" aria-hidden="true"></i></div>
+            <div class="column"><i class="fa fa-pause play-btn fa-fw" aria-hidden="true"></i></div>
+            <div class="column"><i class="fa fa-step-forward" aria-hidden="true"></i></div>
+            <div class="column active"><i style="display: none;" class="fa fa-random" aria-hidden="true"></i></div> 
           </div>
         </div>
       </div>
     </div>
+    <script src="jquery-2.2.4.min.js"></script>
+    <script src="trial.js"></script>
   </body>
 </html>

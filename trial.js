@@ -1,32 +1,34 @@
-// Copyright (c) 2014 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-var queryInfoAudible = {
-  audible: true,
-  currentWindow: true,
-  url: 'https://soundcloud.com/*'
-};
 
-var queryInfoMuted = {
-  audible: false,
+// $('.play-btn').click(function() {
+//   if ( $(this).hasClass("fa-play") ) {
+//     $(this).removeClass("fa-play");
+//     $(this).addClass("fa-pause");
+//   } else {
+//     $(this).removeClass("fa-pause");
+//     $(this).addClass("fa-play");
+//   }
+// });
+
+$('.column').click(function() {
+  $(this).toggleClass("active");
+})
+
+var queryInfo = {
   currentWindow: true,
   url: 'https://soundcloud.com/*'
 };
 
 function getSoundCloudTabUrl(callback) {
 
-  chrome.tabs.query(queryInfoAudible, (tabs) => {
-    var url, id;
+  chrome.tabs.query(queryInfo, (tabs) => {
+    var url, id, audible;
+    var tab = tabs[0];
     console.log(tabs);
-    if (tabs.length){
-      var tab = tabs[0];
-      var url = tab.url;
-      var id = tab.id;
-      console.log(url + " " + id);
-      callback(url, id);
-    } else {
-      callback(undefined, undefined);
-    }
+    title = tab.title;
+    id = tab.id;
+    audible = tab.audible;
+    console.log(title + " " + id + " " + audible);
+    callback(title, id, audible);
   });
 }
 
@@ -39,31 +41,39 @@ var codeback = 'document.getElementsByClassName("' + back + '")[0].click();';
 var codepause = 'document.getElementsByClassName("' + pause + '")[0].click();';
 var codeplay = 'document.getElementsByClassName("' + play + '")[0].click();';
 
-
 document.addEventListener('DOMContentLoaded', function () {
-    getSoundCloudTabUrl((url, id) => {
-      if (url){
-        document.getElementsByClassName('fa-step-forward')[0].addEventListener('click', function () {
-          chrome.tabs.executeScript(parseInt(id), {code : codefwd});
-        });
-        document.getElementsByClassName('fa-play')[0].addEventListener('click', function () {
-          chrome.tabs.executeScript(parseInt(id), {code : codepause});
-        });
-        document.getElementsByClassName('fa-step-backward')[0].addEventListener('click', function () {
-          chrome.tabs.executeScript(parseInt(id), {code : codeback});
-        });
-      } else {
-        document.getElementsByClassName('fa-play')[0].addEventListener('click', function () {
-          chrome.tabs.query(queryInfoMuted, (tabs) => {
-            var tab = tabs[0];
-            if (tab){
-              var url = tab.url;
-              var id = tab.id;
-              console.log(url + " " + id);
-            } 
-            chrome.tabs.executeScript(parseInt(id), {code : codeplay});
-          });
-        });
-      }
+  
+  getSoundCloudTabUrl((title, id, audible) => {
+    console.log("hello")
+    if (title.indexOf('SoundCloud') >= 0){
+      $('.play-btn').removeClass("fa-pause");
+      $('.play-btn').addClass("fa-play");
+    } else {
+      var rest = title.substring(0, title.lastIndexOf("by")).trim();
+      var last = title.substring(title.lastIndexOf("by") + 2, title.length).trim();
+      $('h2').text(last);
+      $('h3').text(rest);
+      $('.play-btn').removeClass("fa-play");
+      $('.play-btn').addClass("fa-pause");
+    }
+    document.getElementsByClassName('fa-step-forward')[0].addEventListener('click', function () {
+      chrome.tabs.executeScript(parseInt(id), {code : codefwd});
+      window.location.reload();
     });
+    document.getElementsByClassName('fa-step-backward')[0].addEventListener('click', function () {
+      chrome.tabs.executeScript(parseInt(id), {code : codeback});
+      window.location.reload();
+    });
+    if (title.indexOf('SoundCloud') >= 0){
+      document.getElementsByClassName('play-btn')[0].addEventListener('click', function () {
+        chrome.tabs.executeScript(parseInt(id), {code : codeplay});
+        window.location.reload();
+      });
+    } else {
+      document.getElementsByClassName('play-btn')[0].addEventListener('click', function () {
+        chrome.tabs.executeScript(parseInt(id), {code : codepause});
+        window.location.reload();
+      });
+    }
+  });
 });
