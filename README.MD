@@ -13,7 +13,7 @@
 <li>Refactor Code</li>
 </ul>
 <br>
-![1](https://github.com/jomyemmanuel/soundcloudAudioControlsChromeExtension/blob/master/view.png "Screen Shot")
+![1](https://user-images.githubusercontent.com/8125643/36218260-c9aba63c-11d9-11e8-8cdb-21d8e22e0095.png "Screen Shot")
 <hr>
 Contributions are welcome! :)
 
