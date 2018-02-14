@@ -1,39 +1,19 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
 <html>
   <head>
     <title>SoundCloud</title>
     <style type="text/css">
-
       *:focus {
         outline: none;
       }
-
       body {
-        /*min-height: 100vh;*/
         font-family: "proxima-nova", "Lato", sans-serif;
-        /*background: #9b59b6;*/
-      }
-      body #project-wrapper {
-        /*height: 100vh;*/
-       /* display: flex;
-        display: -webkit-flex;
-        -webkit-align-items: center;
-        align-items: center;
-        -webkit-justify-content: center;
-        justify-content: center;*/
       }
       body #project-wrapper #project-container {
-        /*background: url("http://www.upsetmagazine.com/wp-content/uploads/2015/09/Bring-Me-The-Horizon_16.jpg");*/
         background-size: cover;
         background-position: top center;
         color: white;
-        /* height: auto; */
-        height: 180px;
+        height: 200px;
         min-width: 300px;
         width: 300px;
         position: relative;
@@ -94,8 +74,10 @@
         background: #ffffff;
         cursor: pointer;
       }
-      body #project-wrapper #project-container #content #controls {
+      body #project-wrapper #project-container #content #controls,
+      body #project-wrapper #project-container #content #controls2 {
         height: 50px;
+        bottom: 20px;
         display: flex;
         display: -webkit-flex;
         -webkit-align-items: center;
@@ -103,22 +85,25 @@
         -webkit-justify-content: center;
         justify-content: center;
       }
-      body #project-wrapper #project-container #content #controls .column {
+      body #project-wrapper #project-container #content #controls .column,
+      body #project-wrapper #project-container #content #controls2 .column {
         float: left;
       }
-      body #project-wrapper #project-container #content #controls .column:nth-child(even) {
+      body #project-wrapper #project-container #content #controls .column:nth-child(even),
+      body #project-wrapper #project-container #content #controls2 .column:nth-child(even) {
         font-size: 1.3em;
       }
-      body #project-wrapper #project-container #content #controls .column:nth-child(n+2):nth-child(-n+4) {
+      body #project-wrapper #project-container #content #controls .column:nth-child(1):nth-child(3) {
         color: white !important;
       }
-      body #project-wrapper #project-container #content #controls .column:nth-child(3) {
+      body #project-wrapper #project-container #content #controls .column:nth-child(2) {
         font-size: 2em;
       }
-      body #project-wrapper #project-container #content #controls .column.active {
-        color: #9b59b6;
+      body #project-wrapper #project-container #content #controls2 .column.active {
+        color: #ff6708;
       }
-      body #project-wrapper #project-container #content #controls .column i {
+      body #project-wrapper #project-container #content #controls .column i,
+      body #project-wrapper #project-container #content #controls2 .column i {
         margin: 0 15px;
         cursor: pointer;
       }
@@ -126,7 +111,7 @@
     </style>
 
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
@@ -135,15 +120,18 @@
       <div id="project-container">
         <div id="overlay"></div>
         <div id="content">
-          <h2>SoundCloud</h2>
+          <h2 style="color: orange;">SoundCloud</h2>
           <h3></h3>
           <!-- <input type="range" value="0" /> -->
           <div id="controls">
-            <div class="column"><i style="display: none;" class="fa fa-refresh" aria-hidden="true"></i></div>
             <div class="column"><i class="fa fa-step-backward" aria-hidden="true"></i></div>
-            <div class="column"><i class="fa fa-pause play-btn fa-fw" aria-hidden="true"></i></div>
+            <div class="column"><i class="fa fa-play play-btn fa-fw" aria-hidden="true"></i></div>
             <div class="column"><i class="fa fa-step-forward" aria-hidden="true"></i></div>
-            <div class="column active"><i style="display: none;" class="fa fa-random" aria-hidden="true"></i></div> 
+          </div>
+          <div id="controls2">
+            <div class="column repeat"><i class="fa fa-repeat cond-repeat" aria-hidden="true"></i></div>
+            <div class="column like"><i class="fa fa-heart" aria-hidden="true"></i></div>
+            <div class="column shuffle"><i class="fa fa-random" aria-hidden="true"></i></div> 
           </div>
         </div>
       </div>
